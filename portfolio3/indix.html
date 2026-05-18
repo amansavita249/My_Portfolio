@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aman Savita Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+        nav {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 22px 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #111;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 28px;
+        }
+
+        nav ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        nav ul li a:hover {
+            color: #22c55e;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 120px 70px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('pick.jpg') no-repeat right center / contain;
+            filter: grayscale(100%) brightness(0.45) contrast(1.05);
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.75) 40%, rgba(0, 0, 0, 0.15) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            margin-left: 90px;
+            margin-top: 40px;
+        }
+
+        .small-heading {
+            color: #22c55e;
+            letter-spacing: 4px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .hero-content h1,
+        .hero-content h2 {
+            font-size: 7rem;
+            line-height: 0.9;
+            font-weight: 800;
+        }
+
+        .hero-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .name {
+            font-size: 17px;
+            color: #22c55e;
+            letter-spacing: 3px;
+            margin: 10px 0 22px;
+        }
+
+        .description {
+            max-width: 600px;
+            line-height: 1.9;
+            color: #ddd;
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 35px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-main {
+            background: #22c55e;
+            color: #000;
+        }
+
+        .btn-outline {
+            border: 2px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+        }
+
+        /* STATS */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: #050505;
+            padding: 35px 20px;
+            border-top: 1px solid #111;
+            border-bottom: 1px solid #111;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat h3 {
+            color: #22c55e;
+            font-size: 30px;
+        }
+
+        .stat p {
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        /* COMMON */
+        .section {
+            padding: 90px 70px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.7rem;
+            margin-bottom: 50px;
+        }
+
+        /* ABOUT */
+        .about-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text p {
+            color: #aaa;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .about-img img {
+            width: 340px;
+            border-radius: 20px;
+            border: 3px solid #22c55e;
+        }
+
+        /* GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: #0f0f0f;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #181818;
+            transition: 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.25);
+        }
+
+        .card h3 {
+            color: #22c55e;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        .card .view {
+            color: #22c55e;
+            font-size: 13px;
+            margin-top: 12px;
+            display: inline-block;
+        }
+
+        /* CONTACT */
+        .contact-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .contact-side {
+            text-align: left;
+        }
+
+        .contact-info p {
+            color: #bbb;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .contact-info {
+            margin-bottom: 18px;
+        }
+
+        .contact-btn {
+            background: #22c55e;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* POPUP */
+        .popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .popup-content {
+            width: 90%;
+            max-width: 550px;
+            background: #0f0f0f;
+            padding: 35px;
+            border-radius: 20px;
+            position: relative;
+            border: 1px solid #222;
+        }
+
+        .popup-content h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #22c55e;
+        }
+
+        .popup-content input,
+        .popup-content textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 18px;
+            border: none;
+            outline: none;
+            border-radius: 12px;
+            background: #161616;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .popup-content textarea {
+            resize: none;
+            height: 130px;
+        }
+
+        .popup-content button {
+            width: 100%;
+            background: #22c55e;
+            color: #000;
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #111;
+            color: #777;
+        }
+
+        @media(max-width:900px) {
+            nav {
+                justify-content: center;
+                padding: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 130px 20px;
+            }
+
+            .hero-content {
+                margin-left: 0;
+                text-align: center;
+            }
+
+            .hero-content h1,
+            .hero-content h2 {
+                font-size: 4rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .section {
+                padding: 70px 20px;
+            }
+
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-img img {
+                width: 260px;
+            }
+
+            .contact-wrapper {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certificates">Certificates</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="small-heading">WE CREATE WEBSITE FOR YOU</p>
+            <h1>WEB</h1>
+            <h2>DESIGNER</h2>
+            <p class="name">AMAN SAVITA</p>
+            <p class="description">Results-driven BCA student skilled in Web Development, Python, Cybersecurity, AI
+                tools and Data Entry Management.</p>
+            <div class="hero-buttons">
+                <a class="btn btn-outline" href="https://linkedin.com" target="_blank">LinkedIn</a>
+                <a class="btn btn-outline" href="amansavita727@gmail.com" target="_blank">Gmail</a>
+                <a class="btn btn-outline" href="https://hackerrank.com" target="_blank">HackerRank</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats">
+        <div class="stat">
+            <h3>5+</h3>
+            <p>Projects</p>
+        </div>
+        <div class="stat">
+            <h3>6 Months</h3>
+            <p>Data Entry</p>
+        </div>
+        <div class="stat">
+            <h3>BCA</h3>
+            <p>Student</p>
+        </div>
+        <div class="stat">
+            <h3>Fresher</h3>
+            <p>Available</p>
+        </div>
+    </div>
+
+    <section class="section" id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <div class="about-text">
+                <p>I am a BCA student from PSIT College of Higher Education, Kanpur.</p>
+                <p>Skilled in HTML, CSS, JavaScript, Python, Cybersecurity and AI tools.</p>
+                <p>Worked in Data Entry Management with ALIMCO partner company.</p>
+            </div>
+            <div class="about-img"><img src="pick.jpg" alt="Aman Savita"></div>
+        </div>
+    </section>
+
+    <section class="section" id="projects">
+        <h2 class="section-title">My Projects</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Phishing Detection Tool.html</h3>
+                <p><a href="AI cybersecurity tool.html" >Phishing Detection Tool</a></p>
+            </div>
+            <div class="card">
+                <h3>AI Resume Analyzer</h3>
+                <p>ATS Resume Checker using AI and NLP.</p>
+            </div>
+            <div class="card">
+                <h3>Portfolio Website</h3>
+                <p>Responsive modern portfolio website.</p>
+            </div>
+            <div class="card">
+                <h3>AI Fault Localization</h3>
+                <p>AI-based intelligent fault detection project.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="certificates">
+        <h2 class="section-title">My Certifications</h2>
+        <div class="grid">
+            <a class="card" href="Cyber security jobs emulation.png" target="_blank">
+                <h3>Cybersecurity Job Simulation</h3>
+                <p>Forage • Cybersecurity</p><span class="view">View Certificate →</span>
+            </a>
+            <a class="card" href="python_for_data_Science.png" target="_blank">
+                <h3>Python for Data Science</h3>
+                <p>Infosys Springboard</p><span class="view">View Certificate →</span>
+            </a>
+            <a class="card" href="Programming fundamental using Python.png" target="_blank">
+                <h3>Programming Fundamentals Using Python</h3>
+                <p>Infosys Springboard</p><span class="view">View Certificate →</span>
+            </a>
+            <a class="card" href="masai.png" target="_blank">
+                <h3>Masai Qualifier Test</h3>
+                <p>AI & ML • 97.6%</p><span class="view">View Certificate →</span>
+            </a>
+            <a class="card" href="AI Workshop BE 10X.png" target="_blank">
+                <h3>AI Tools & ChatGPT Workshop</h3>
+                <p>be10X Verified</p><span class="view">View Certificate →</span>
+            </a>
+            <a class="card" href="Introduction to HTML.png" target="_blank">
+                <h3>Introduction To HTML</h3>
+                <p>Coursera</p><span class="view">View Certificate →</span>
+            </a>
+            <a class="card" href="icat.png" target="_blank">
+                <h3>iCAT Participation</h3>
+                <p>Internship Common Aptitude Test</p><span class="view">View Certificate →</span>
+                 </a>
+            <a class="card" href="International Conference Certificate.jpeg" target="_blank">
+                <h3>International Conference Certificate</h3>
+                <p>Internship Common Aptitude Test</p><span class="view">View Certificate →</span>
+            </a>
+        
+            <a class="card" href="Adobe Certificate.png" target="_blank">
+                <h3>Adboe</h3>
+                <p>Adobe</p><span class="view">View Certificate →</span>
+            </a>
+        </div>
+    </section>
+
+ <!-- ================= CONTACT SECTION START ================= -->
+<section class="section" id="contact">
+
+    <!-- Sirf Ye Heading Right Side Me Hai -->
+    <h2 class="section-title">Contact Me</h2>
+
+    <div class="contact-wrapper">
+
+        <!-- Contact Info -->
+        <div class="right-contact">
+
+            <!-- Gmail -->
+            <p>
+                <a href="mailto:amansavita727@gmail.com">
+                    📧 Gmail: amansavita727@gmail.com
+                </a>
+            </p>
+
+            <!-- WhatsApp -->
+            <p>
+                <a href="https://wa.me/916392309409?text=Hello%20Aman%20I%20want%20a%20website"
+                   target="_blank">
+
+                    💬 WhatsApp: 6392309409
+
+                </a>
+            </p>
+
+            <!-- Call -->
+            <p>
+                <a href="tel:6392309409">
+                    📞 Call: 6392309409
+                </a>
+            </p>
+
+            <!-- Contact Button -->
+            <button class="contact-btn"
+                onclick="document.getElementById('popup').style.display='flex'">
+
+                Contact Box
+
+            </button>
+
+        </div>
+
+    </div>
+</section>
+<!-- ================= CONTACT SECTION END ================= -->
+
+
+<!-- ================= POPUP START ================= -->
+<div class="popup" id="popup">
+
+    <div class="popup-content">
+
+        <!-- Close Button -->
+        <span class="close-btn"
+            onclick="document.getElementById('popup').style.display='none'">
+
+            ×
+
+        </span>
+
+        <!-- Popup Heading -->
+        <h2>Website Requirement Form</h2>
+
+        <!-- FORM -->
+        <form action="https://formsubmit.co/amansavita727@gmail.com"
+              method="POST">
+
+            <!-- Name -->
+            <input type="text"
+                   name="name"
+                   placeholder="Your Name"
+                   required>
+
+            <!-- Email -->
+            <input type="email"
+                   name="email"
+                   placeholder="Your Email"
+                   required>
+
+            <!-- Phone -->
+            <input type="text"
+                   name="phone"
+                   placeholder="Phone Number"
+                   required>
+
+            <!-- Message -->
+            <textarea name="message"
+                      placeholder="Your Requirement"></textarea>
+
+            <!-- Submit -->
+            <button type="submit">
+
+                Submit
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+<!-- ================= POPUP END ================= -->
+
+
+<!-- ================= CSS ================= -->
+<style>
+
+    /* Sirf Contact Heading Right Side */
+    #contact .section-title{
+        text-align: right;
+        margin-right: 60px;
+    }
+
+    /* Contact Wrapper */
+    .contact-wrapper{
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    /* Right Side Content */
+    .right-contact{
+        text-align: right;
+        margin-right: 60px;
+    }
+
+    /* Contact Text */
+    .right-contact p{
+        margin: 18px 0;
+        font-size: 20px;
+    }
+
+    /* Links */
+    .right-contact a{
+        text-decoration: none;
+        color: white;
+        transition: 0.3s;
+    }
+
+    /* Hover */
+    .right-contact a:hover{
+        color: #00ffff;
+    }
+
+    /* Button */
+    .contact-btn{
+        margin-top: 20px;
+        padding: 14px 30px;
+        border: none;
+        border-radius: 10px;
+        background: #22c55e;
+        color: black;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+</style>
