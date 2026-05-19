@@ -542,164 +542,129 @@
         </div>
     </section>
 
- <!-- ================= CONTACT SECTION START ================= -->
+<!-- ====== CONTACT ====== -->
 <section class="section" id="contact">
-
-    <!-- Sirf Ye Heading Right Side Me Hai -->
-    <h2 class="section-title">Contact Me</h2>
-
-    <div class="contact-wrapper">
-
-        <!-- Contact Info -->
-        <div class="right-contact">
-
-            <!-- Gmail -->
-            <p>
-                <a href="mailto:amansavita727@gmail.com">
-                    📧 Gmail: amansavita727@gmail.com
-                </a>
-            </p>
-
-            <!-- WhatsApp -->
-            <p>
-                <a href="https://wa.me/916392309409?text=Hello%20Aman%20I%20want%20a%20website"
-                   target="_blank">
-
-                    💬 WhatsApp: 6392309409
-
-                </a>
-            </p>
-
-            <!-- Call -->
-            <p>
-                <a href="tel:6392309409">
-                    📞 Call: 6392309409
-                </a>
-            </p>
-
-            <!-- Contact Button -->
-            <button class="contact-btn"
-                onclick="document.getElementById('popup').style.display='flex'">
-
-                Contact Box
-
-            </button>
-
-        </div>
-
+  <h2 class="section-title">Contact Me</h2>
+  <div class="contact-wrapper">
+    <div class="right-contact">
+      <p><a href="mailto:amansavita727@gmail.com">📧 Gmail: amansavita727@gmail.com</a></p>
+      <p><a href="https://wa.me/916392309409" target="_blank">💬 WhatsApp: 6392309409</a></p>
+      <p><a href="tel:+916392309409">📞 Call: 6392309409</a></p>
+      <button class="contact-btn" onclick="openPopup()">Contact Box</button>
     </div>
+  </div>
 </section>
-<!-- ================= CONTACT SECTION END ================= -->
 
-
-<!-- ================= POPUP START ================= -->
+<!-- ====== POPUP FORM ====== -->
 <div class="popup" id="popup">
-
-    <div class="popup-content">
-
-        <!-- Close Button -->
-        <span class="close-btn"
-            onclick="document.getElementById('popup').style.display='none'">
-
-            ×
-
-        </span>
-
-        <!-- Popup Heading -->
-        <h2>Website Requirement Form</h2>
-
-        <!-- FORM -->
-        <form action="https://formsubmit.co/amansavita727@gmail.com"
-              method="POST">
-
-            <!-- Name -->
-            <input type="text"
-                   name="name"
-                   placeholder="Your Name"
-                   required>
-
-            <!-- Email -->
-            <input type="email"
-                   name="email"
-                   placeholder="Your Email"
-                   required>
-
-            <!-- Phone -->
-            <input type="text"
-                   name="phone"
-                   placeholder="Phone Number"
-                   required>
-
-            <!-- Message -->
-            <textarea name="message"
-                      placeholder="Your Requirement"></textarea>
-
-            <!-- Submit -->
-            <button type="submit">
-
-                Submit
-
-            </button>
-
-        </form>
-
-    </div>
-
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">×</span>
+    <h2>Website Requirement Form</h2>
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="text" name="phone" placeholder="Phone Number" required>
+      <textarea name="message" placeholder="Your Requirement" required></textarea>
+      <button type="submit" id="submitBtn">Submit</button>
+    </form>
+  </div>
 </div>
-<!-- ================= POPUP END ================= -->
 
+<!-- ====== TOAST ====== -->
+<div class="toast" id="toast"></div>
 
-<!-- ================= CSS ================= -->
-<style>
+<footer>© 2025 Aman Savita. All Rights Reserved.</footer>
 
-    /* Sirf Contact Heading Right Side */
-    #contact .section-title{
-        text-align: right;
-        margin-right: 60px;
+<script>
+// ====== CONFIG ====== //
+// Web3Forms se free access key le ke yahan paste karo (https://web3forms.com)
+const WEB3FORMS_KEY = "386a7382-aedb-4ad6-ad64-d03b24701427";
+
+// Tumhara WhatsApp number (country code ke saath, bina + ke)
+const OWNER_WHATSAPP = "916392309409";
+
+// ====== POPUP open/close functions ====== //
+function openPopup() { document.getElementById('popup').classList.add('active'); }
+function closePopup() { document.getElementById('popup').classList.remove('active'); }
+
+// Popup ke bahar click karne par close ho jaye
+document.getElementById('popup').addEventListener('click', function(e) {
+  if (e.target === this) closePopup();
+});
+
+// ====== TOAST notification function ====== //
+function showToast(message, isError = false) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => { toast.className = 'toast' + (isError ? ' error' : ''); }, 4000);
+}
+
+// ====== FORM SUBMIT handler ====== //
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault(); // page reload rokne ke liye
+
+  const form = e.target;
+  const submitBtn = document.getElementById('submitBtn');
+  const formData = new FormData(form);
+
+  // User ki details nikal lo
+  const name = formData.get('name');
+  const email = formData.get('email');
+  const phone = formData.get('phone');
+  const message = formData.get('message');
+
+  // Button disable kar do submit ke time
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  try {
+    // ====== STEP 1: Email Aman ko bhejo via Web3Forms ====== //
+    const emailPayload = {
+      access_key: WEB3FORMS_KEY,
+      subject: `New Website Requirement from ${name}`,
+      from_name: "Portfolio Contact Form",
+      name: name,
+      email: email,
+      phone: phone,
+      message: message,
+    };
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(emailPayload)
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      // ====== STEP 2: Success toast dikha do ====== //
+      showToast('✅ Your request has been sent successfully!');
+
+      // ====== STEP 3: WhatsApp pe redirect karo with pre-filled message ====== //
+      const waMessage = `Hello Aman, mujhe website chahiye.%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Phone:* ${phone}%0A*Requirement:* ${message}`;
+      setTimeout(() => {
+        window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${waMessage}`, '_blank');
+      }, 800);
+
+      // Form reset aur popup close
+      form.reset();
+      setTimeout(closePopup, 1500);
+    } else {
+      // Web3Forms se error aaya
+      showToast('❌ Failed to send. Please try WhatsApp directly.', true);
     }
+  } catch (err) {
+    // Network ya koi aur error
+    showToast('❌ Network error. Please try WhatsApp directly.', true);
+  } finally {
+    // Button wapas enable kar do
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit';
+  }
+});
+</script>
 
-    /* Contact Wrapper */
-    .contact-wrapper{
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
-    }
-
-    /* Right Side Content */
-    .right-contact{
-        text-align: right;
-        margin-right: 60px;
-    }
-
-    /* Contact Text */
-    .right-contact p{
-        margin: 18px 0;
-        font-size: 20px;
-    }
-
-    /* Links */
-    .right-contact a{
-        text-decoration: none;
-        color: white;
-        transition: 0.3s;
-    }
-
-    /* Hover */
-    .right-contact a:hover{
-        color: #00ffff;
-    }
-
-    /* Button */
-    .contact-btn{
-        margin-top: 20px;
-        padding: 14px 30px;
-        border: none;
-        border-radius: 10px;
-        background: #22c55e;
-        color: black;
-        font-size: 18px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-</style>
+</body>
+</html>
