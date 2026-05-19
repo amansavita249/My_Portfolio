@@ -1,436 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aman Savita Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aman Savita Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+html { scroll-behavior:smooth; }
+body { background:#000; color:#fff; overflow-x:hidden; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+/* NAVBAR */
+nav { width:100%; display:flex; justify-content:flex-end; align-items:center; padding:22px 70px; position:fixed; top:0; left:0; z-index:1000; background:rgba(0,0,0,0.55); backdrop-filter:blur(10px); border-bottom:1px solid #111; }
+nav ul { display:flex; list-style:none; }
+nav ul li { margin-left:28px; }
+nav ul li a { color:#ccc; text-decoration:none; transition:0.3s; font-size:15px; }
+nav ul li a:hover { color:#22c55e; }
 
-        body {
-            background: #000;
-            color: #fff;
-            overflow-x: hidden;
-        }
+/* HERO */
+.hero { position:relative; min-height:100vh; display:flex; align-items:center; overflow:hidden; padding:120px 70px; }
+.hero::before { content:""; position:absolute; inset:0; background:url('pick.jpg') no-repeat right center / contain; filter:grayscale(100%) brightness(0.45) contrast(1.05); z-index:0; }
+.hero::after { content:""; position:absolute; inset:0; background:linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.75) 40%, rgba(0,0,0,0.15) 100%); z-index:1; }
+.hero-content { position:relative; z-index:2; margin-left:90px; margin-top:40px; }
+.small-heading { color:#22c55e; letter-spacing:4px; font-size:14px; margin-bottom:18px; }
+.hero-content h1, .hero-content h2 { font-size:7rem; line-height:0.9; font-weight:800; }
+.hero-content h2 { margin-bottom:20px; }
+.name { font-size:17px; color:#22c55e; letter-spacing:3px; margin:10px 0 22px; }
+.description { max-width:600px; line-height:1.9; color:#ddd; margin-bottom:35px; }
+.hero-buttons { display:flex; gap:20px; flex-wrap:wrap; }
+.btn { padding:14px 30px; border-radius:35px; text-decoration:none; font-weight:600; transition:0.3s; display:inline-block; }
+.btn-main { background:#22c55e; color:#000; }
+.btn-outline { border:2px solid #22c55e; color:#22c55e; }
+.btn:hover { transform:translateY(-4px); }
 
-        /* NAVBAR */
-        nav {
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 22px 70px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #111;
-        }
+/* STATS */
+.stats { display:flex; justify-content:space-around; background:#050505; padding:35px 20px; border-top:1px solid #111; border-bottom:1px solid #111; }
+.stat { text-align:center; }
+.stat h3 { color:#22c55e; font-size:30px; }
+.stat p { color:#aaa; margin-top:8px; }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
+/* COMMON */
+.section { padding:90px 70px; }
+.section-title { text-align:center; font-size:2.7rem; margin-bottom:50px; }
 
-        nav ul li {
-            margin-left: 28px;
-        }
+/* ABOUT */
+.about-container { display:flex; justify-content:space-between; align-items:center; gap:60px; flex-wrap:wrap; }
+.about-text { flex:1; min-width:300px; }
+.about-text p { color:#aaa; line-height:1.9; margin-bottom:20px; }
+.about-img img { width:340px; border-radius:20px; border:3px solid #22c55e; }
 
-        nav ul li a {
-            color: #ccc;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 15px;
-        }
+/* GRID */
+.grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:25px; }
+.card { background:#0f0f0f; padding:25px; border-radius:20px; border:1px solid #181818; transition:0.3s; text-decoration:none; color:inherit; display:block; cursor:pointer; }
+.card:hover { transform:translateY(-8px); box-shadow:0 0 25px rgba(34,197,94,0.25); }
+.card h3 { color:#22c55e; margin-bottom:15px; }
+.card p { color:#aaa; line-height:1.8; }
+.card .view { color:#22c55e; font-size:13px; margin-top:12px; display:inline-block; }
 
-        nav ul li a:hover {
-            color: #22c55e;
-        }
+/* CONTACT */
+#contact .section-title { text-align:right; margin-right:60px; }
+.contact-wrapper { display:flex; justify-content:flex-end; width:100%; }
+.right-contact { text-align:right; margin-right:60px; }
+.right-contact p { margin:18px 0; font-size:20px; }
+.right-contact a { text-decoration:none; color:white; transition:0.3s; }
+.right-contact a:hover { color:#00ffff; }
+.contact-btn { margin-top:20px; padding:14px 30px; border:none; border-radius:10px; background:#22c55e; color:black; font-size:18px; font-weight:600; cursor:pointer; }
 
-        /* HERO */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            padding: 120px 70px;
-        }
+/* POPUP */
+.popup { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:9999; }
+.popup.active { display:flex; }
+.popup-content { width:90%; max-width:550px; background:#0f0f0f; padding:35px; border-radius:20px; position:relative; border:1px solid #222; }
+.popup-content h2 { text-align:center; margin-bottom:25px; color:#22c55e; }
+.popup-content input, .popup-content textarea { width:100%; padding:15px; margin-bottom:18px; border:none; outline:none; border-radius:12px; background:#161616; color:#fff; font-family:inherit; }
+.popup-content textarea { resize:none; height:130px; }
+.popup-content button { width:100%; background:#22c55e; color:#000; padding:15px; border:none; border-radius:30px; font-weight:600; cursor:pointer; }
+.popup-content button:disabled { opacity:0.6; cursor:not-allowed; }
+.close-btn { position:absolute; top:15px; right:18px; font-size:25px; cursor:pointer; }
 
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: url('pick.jpg') no-repeat right center / contain;
-            filter: grayscale(100%) brightness(0.45) contrast(1.05);
-            z-index: 0;
-        }
+/* TOAST notification (success message ke liye) */
+.toast { position:fixed; top:30px; right:30px; background:#22c55e; color:#000; padding:16px 24px; border-radius:12px; font-weight:600; box-shadow:0 10px 30px rgba(34,197,94,0.4); z-index:10000; transform:translateX(400px); transition:transform 0.4s ease; }
+.toast.show { transform:translateX(0); }
+.toast.error { background:#ef4444; color:#fff; }
 
-        .hero::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.75) 40%, rgba(0, 0, 0, 0.15) 100%);
-            z-index: 1;
-        }
+footer { text-align:center; padding:30px; border-top:1px solid #111; color:#777; }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            margin-left: 90px;
-            margin-top: 40px;
-        }
-
-        .small-heading {
-            color: #22c55e;
-            letter-spacing: 4px;
-            font-size: 14px;
-            margin-bottom: 18px;
-        }
-
-        .hero-content h1,
-        .hero-content h2 {
-            font-size: 7rem;
-            line-height: 0.9;
-            font-weight: 800;
-        }
-
-        .hero-content h2 {
-            margin-bottom: 20px;
-        }
-
-        .name {
-            font-size: 17px;
-            color: #22c55e;
-            letter-spacing: 3px;
-            margin: 10px 0 22px;
-        }
-
-        .description {
-            max-width: 600px;
-            line-height: 1.9;
-            color: #ddd;
-            margin-bottom: 35px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 14px 30px;
-            border-radius: 35px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-            display: inline-block;
-        }
-
-        .btn-main {
-            background: #22c55e;
-            color: #000;
-        }
-
-        .btn-outline {
-            border: 2px solid #22c55e;
-            color: #22c55e;
-        }
-
-        .btn:hover {
-            transform: translateY(-4px);
-        }
-
-        /* STATS */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            background: #050505;
-            padding: 35px 20px;
-            border-top: 1px solid #111;
-            border-bottom: 1px solid #111;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat h3 {
-            color: #22c55e;
-            font-size: 30px;
-        }
-
-        .stat p {
-            color: #aaa;
-            margin-top: 8px;
-        }
-
-        /* COMMON */
-        .section {
-            padding: 90px 70px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.7rem;
-            margin-bottom: 50px;
-        }
-
-        /* ABOUT */
-        .about-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 60px;
-            flex-wrap: wrap;
-        }
-
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .about-text p {
-            color: #aaa;
-            line-height: 1.9;
-            margin-bottom: 20px;
-        }
-
-        .about-img img {
-            width: 340px;
-            border-radius: 20px;
-            border: 3px solid #22c55e;
-        }
-
-        /* GRID */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: #0f0f0f;
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid #181818;
-            transition: 0.3s;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 0 25px rgba(34, 197, 94, 0.25);
-        }
-
-        .card h3 {
-            color: #22c55e;
-            margin-bottom: 15px;
-        }
-
-        .card p {
-            color: #aaa;
-            line-height: 1.8;
-        }
-
-        .card .view {
-            color: #22c55e;
-            font-size: 13px;
-            margin-top: 12px;
-            display: inline-block;
-        }
-
-        /* CONTACT */
-        .contact-wrapper {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .contact-side {
-            text-align: left;
-        }
-
-        .contact-info p {
-            color: #bbb;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .contact-info {
-            margin-bottom: 18px;
-        }
-
-        .contact-btn {
-            background: #22c55e;
-            color: #000;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .contact-btn:hover {
-            transform: translateY(-3px);
-        }
-
-        /* POPUP */
-        .popup {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .popup-content {
-            width: 90%;
-            max-width: 550px;
-            background: #0f0f0f;
-            padding: 35px;
-            border-radius: 20px;
-            position: relative;
-            border: 1px solid #222;
-        }
-
-        .popup-content h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #22c55e;
-        }
-
-        .popup-content input,
-        .popup-content textarea {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 18px;
-            border: none;
-            outline: none;
-            border-radius: 12px;
-            background: #161616;
-            color: #fff;
-            font-family: inherit;
-        }
-
-        .popup-content textarea {
-            resize: none;
-            height: 130px;
-        }
-
-        .popup-content button {
-            width: 100%;
-            background: #22c55e;
-            color: #000;
-            padding: 15px;
-            border: none;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 18px;
-            font-size: 25px;
-            cursor: pointer;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            border-top: 1px solid #111;
-            color: #777;
-        }
-
-        @media(max-width:900px) {
-            nav {
-                justify-content: center;
-                padding: 20px;
-            }
-
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .hero {
-                padding: 130px 20px;
-            }
-
-            .hero-content {
-                margin-left: 0;
-                text-align: center;
-            }
-
-            .hero-content h1,
-            .hero-content h2 {
-                font-size: 4rem;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .stats {
-                flex-wrap: wrap;
-                gap: 20px;
-            }
-
-            .section {
-                padding: 70px 20px;
-            }
-
-            .about-container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .about-img img {
-                width: 260px;
-            }
-
-            .contact-wrapper {
-                justify-content: center;
-            }
-        }
-    </style>
+@media(max-width:900px) {
+  nav { justify-content:center; padding:20px; }
+  nav ul { flex-wrap:wrap; justify-content:center; }
+  .hero { padding:130px 20px; }
+  .hero-content { margin-left:0; text-align:center; }
+  .hero-content h1, .hero-content h2 { font-size:4rem; }
+  .hero-buttons { justify-content:center; }
+  .stats { flex-wrap:wrap; gap:20px; }
+  .section { padding:70px 20px; }
+  .about-container { flex-direction:column; text-align:center; }
+  .about-img img { width:260px; }
+  .contact-wrapper, #contact .section-title, .right-contact { justify-content:center; text-align:center; margin-right:0; }
+}
+</style>
 </head>
-
 <body>
 
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#certificates">Certificates</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+<!-- ====== NAVBAR ====== -->
+<nav>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-    <section class="hero" id="home">
+<!-- ====== HERO ====== -->
+  <section class="hero" id="home">
         <div class="hero-content">
             <p class="small-heading">WE CREATE WEBSITE FOR YOU</p>
             <h1>WEB</h1>
@@ -446,43 +129,33 @@
         </div>
     </section>
 
-    <div class="stats">
-        <div class="stat">
-            <h3>5+</h3>
-            <p>Projects</p>
-        </div>
-        <div class="stat">
-            <h3>6 Months</h3>
-            <p>Data Entry</p>
-        </div>
-        <div class="stat">
-            <h3>BCA</h3>
-            <p>Student</p>
-        </div>
-        <div class="stat">
-            <h3>Fresher</h3>
-            <p>Available</p>
-        </div>
+<!-- ====== STATS ====== -->
+<section class="stats">
+  <div class="stat"><h3>5+</h3><p>Projects</p></div>
+  <div class="stat"><h3>6 Months</h3><p>Data Entry</p></div>
+  <div class="stat"><h3>BCA</h3><p>Student</p></div>
+  <div class="stat"><h3>Fresher</h3><p>Available</p></div>
+</section>
+
+<!-- ====== ABOUT ====== -->
+<section class="section" id="about">
+  <h2 class="section-title">About Me</h2>
+  <div class="about-container">
+    <div class="about-text">
+      <p>I am a BCA student from PSIT College of Higher Education, Kanpur.</p>
+      <p>Skilled in HTML, CSS, JavaScript, Python, Cybersecurity and AI tools.</p>
+      <p>Worked in Data Entry Operator with ALIMCO partner company.</p>
     </div>
+  </div>
+</section>
 
-    <section class="section" id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-container">
-            <div class="about-text">
-                <p>I am a BCA student from PSIT College of Higher Education, Kanpur.</p>
-                <p>Skilled in HTML, CSS, JavaScript, Python, Cybersecurity and AI tools.</p>
-                <p>Worked in Data Entry Operator with ALIMCO partner company.</p>
-            </div>
-            <div class="about-img"><img src="pick.jpg" alt="Aman Savita"></div>
-        </div>
-    </section>
-
-    <section class="section" id="projects">
+<!-- ====== PROJECTS ====== -->
+  <section class="section" id="projects">
         <h2 class="section-title">My Projects</h2>
         <div class="grid">
             <div class="card">
                 <h3>Phishing Detection Tool.html</h3>
-                <p><a href="AI cybersecurity tool.html" >Phishing Detection Tool</a></p>
+                <p><a href="AI cybersecurity tool" >Phishing Detection Tool</a></p>
             </div>
             <div class="card">
                 <h3>AI Resume Analyzer</h3>
@@ -499,48 +172,39 @@
         </div>
     </section>
 
-    <section class="section" id="certificates">
-        <h2 class="section-title">My Certifications</h2>
-        <div class="grid">
-            <a class="card" href="Cyber security jobs emulation.png" target="_blank">
-                <h3>Cybersecurity Job Simulation</h3>
-                <p>Forage • Cybersecurity</p><span class="view">View Certificate →</span>
-            </a>
-            <a class="card" href="python_for_data_Science.png" target="_blank">
-                <h3>Python for Data Science</h3>
-                <p>Infosys Springboard</p><span class="view">View Certificate →</span>
-            </a>
-            <a class="card" href="Programming fundamental using Python.png" target="_blank">
-                <h3>Programming Fundamentals Using Python</h3>
-                <p>Infosys Springboard</p><span class="view">View Certificate →</span>
-            </a>
-            <a class="card" href="masai.png" target="_blank">
-                <h3>Masai Qualifier Test</h3>
-                <p>AI & ML • 97.6%</p><span class="view">View Certificate →</span>
-            </a>
-            <a class="card" href="AI Workshop BE 10X.png" target="_blank">
-                <h3>AI Tools & ChatGPT Workshop</h3>
-                <p>be10X Verified</p><span class="view">View Certificate →</span>
-            </a>
-            <a class="card" href="Introduction to HTML.png" target="_blank">
-                <h3>Introduction To HTML</h3>
-                <p>Coursera</p><span class="view">View Certificate →</span>
-            </a>
-            <a class="card" href="icat.png" target="_blank">
-                <h3>iCAT Participation</h3>
-                <p>Internship Common Aptitude Test</p><span class="view">View Certificate →</span>
-                 </a>
-            <a class="card" href="International Conference Certificate.jpeg" target="_blank">
-                <h3>International Conference Certificate</h3>
-                <p>Internship Common Aptitude Test</p><span class="view">View Certificate →</span>
-            </a>
-        
-            <a class="card" href="Adobe Certificate.jpeg" target="_blank">
-                <h3>Adboe</h3>
-                <p>Adobe</p><span class="view">View Certificate →</span>
-            </a>
-        </div>
-    </section>
+<!-- ====== CERTIFICATES ====== -->
+<section class="section" id="certificates">
+  <h2 class="section-title">My Certifications</h2>
+  <div class="grid">
+    <div class="card"><h3>Cybersecurity Job Simulation</h3><p>Forage • Cybersecurity</p><a href="Cyber security jobs emulation.png" target="_blank" class="view">View Certificate →</a> 
+    </div>
+    
+    <div class="card"><h3>Python for Data Science</h3><p>Infosys Springboard</p><a href="python_for_data_Science.png" target="_blank" class="view">View Certificate →</a> 
+    </div>
+    
+    <div class="card"><h3>Programming Fundamentals Using Python</h3><p>Infosys Springboard</p><a href="Programming fundamental using Python.png" target="_blank" class="view">View Certificate →</a> 
+    </div>
+    
+    <div class="card"><h3>Masai Qualifier Test</h3><p>AI & ML • 97.6%</p><a href="masai.png" target="_blank" class="view">View Certificate →</a> 
+    </div>
+    
+    <div class="card"><h3>AI Tools & ChatGPT Workshop</h3><p>be10X Verified</p><a href="AI Workshop BE 10X.png" target="_blank" class="view">View Certificate →</a> 
+    </div>
+    
+    <div class="card"><h3>Introduction To HTML</h3><p>Coursera</p><a href="Introduction to HTML.png" target="_blank" class="view">View Certificate →</a> 
+    </div>
+    
+    <div class="card"><h3>iCAT Participation</h3><p>Internship Common Aptitude Test</p><a href="icat.png" target="_blank" class="view">View Certificate →</a> 
+    </div>
+    
+    <div class="card"><h3>International Conference Certificate</h3><p>Internship Common Aptitude Test</p><a href="International Conference Certificate.jpeg" target="_blank" class="view">View Certificate →</a> 
+    </div>
+    
+    <div class="card"><h3>Adobe</h3><p>Adobe</p><a href="Adobe Certificate.jpeg" target="_blank" class="view">View Certificate →</a> 
+    </div>
+    
+  </div>
+</section>
 
 <!-- ====== CONTACT ====== -->
 <section class="section" id="contact">
