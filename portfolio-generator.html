@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aman Portfolio Generator | AI Powered</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Bhai yaha se custom styling start ho rahi hai */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #0f172a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Portfolio Preview Styles */
+        #preview-content {
+            background: white;
+            color: #1e293b;
+            min-height: 500px;
+            border-radius: 12px;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar Section: Aman ka logo yaha hai -->
+    <nav class="p-6 flex justify-between items-center border-b border-white/10 glass sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <i data-lucide="zap" class="text-white w-6 h-6"></i>
+            </div>
+            <h1 class="text-2xl font-800 tracking-tighter uppercase">Created by <span class="text-blue-500">Aman</span></h1>
+        </div>
+        <div class="text-xs font-bold text-gray-500 uppercase tracking-widest hidden md:block">
+            AI Portfolio Architect v2.0
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        
+        <!-- Hero Section -->
+        <div class="text-center mb-16 animate-fade">
+            <h2 class="text-5xl md:text-6xl font-800 mb-6 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                Ek click mein apna <br> career chamkao.
+            </h2>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                Aman ka special generator unke liye jo smart hain, aur unke liye bhi jo abhi seekh rahe hain. 
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Side: Inputs -->
+            <div class="lg:col-span-5 space-y-6">
+                
+                <!-- Toggle Switches -->
+                <div class="flex p-1 bg-slate-900 rounded-xl glass">
+                    <button onclick="switchMode('prompt')" id="prompt-tab" class="flex-1 py-3 rounded-lg text-sm font-bold bg-blue-600 text-white transition-all">
+                        AI Prompt Mode
+                    </button>
+                    <button onclick="switchMode('guided')" id="guided-tab" class="flex-1 py-3 rounded-lg text-sm font-bold text-gray-400 hover:text-white transition-all">
+                        Guided Mode (Beginner)
+                    </button>
+                </div>
+
+                <!-- Mode 1: Prompt Mode -->
+                <div id="prompt-section" class="glass p-8 rounded-3xl space-y-4 animate-fade">
+                    <h3 class="text-xl font-bold">AI Prompt</h3>
+                    <p class="text-gray-500 text-sm">Bhai yaha likho tumhe kaisa portfolio chahiye (e.g. "I am a web dev who loves blue themes")</p>
+                    <textarea id="prompt-input" rows="4" class="w-full bg-slate-900 border border-white/10 rounded-xl p-4 text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Describe yourself..."></textarea>
+                </div>
+
+                <!-- Mode 2: Guided Mode -->
+                <div id="guided-section" class="hidden glass p-8 rounded-3xl space-y-6 animate-fade">
+                    <div class="bg-blue-500/10 p-4 rounded-xl border border-blue-500/20 text-sm text-blue-400">
+                        <i data-lucide="info" class="inline w-4 h-4 mr-2"></i>
+                        <b>Aman's Tip:</b> Portfolio mein <b>Certificates</b> aur <b>Education</b> daalna zaroori hai taaki logo ko tumhari skills par bharosa ho.
+                    </div>
+                    <div class="space-y-4">
+                        <input type="text" id="g-name" placeholder="Apna Full Name" class="w-full bg-slate-900 border border-white/10 rounded-xl p-4 text-sm">
+                        <input type="text" id="g-role" placeholder="Aap kya kaam karte ho? (e.g. Designer)" class="w-full bg-slate-900 border border-white/10 rounded-xl p-4 text-sm">
+                        <textarea id="g-skills" placeholder="Skills (Comma se separate karo)" class="w-full bg-slate-900 border border-white/10 rounded-xl p-4 text-sm"></textarea>
+                        <input type="text" id="g-certs" placeholder="Important Certificates" class="w-full bg-slate-900 border border-white/10 rounded-xl p-4 text-sm">
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button onclick="generatePortfolio()" class="w-full bg-white text-black py-5 rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-blue-500 hover:text-white transition-all transform active:scale-95 flex justify-center items-center gap-2">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i> Generate My Portfolio
+                </button>
+
+            </div>
+
+            <!-- Right Side: Live Preview -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="flex justify-between items-center px-2">
+                    <h3 class="text-xl font-bold flex items-center gap-2">
+                        <i data-lucide="eye" class="text-blue-500"></i> Live Preview
+                    </h3>
+                    <button onclick="downloadPortfolio()" id="dl-btn" class="hidden text-sm text-blue-400 font-bold hover:underline">
+                        Download HTML File
+                    </button>
+                </div>
+
+                <div id="preview-container" class="glass rounded-3xl p-4 min-h-[600px] flex items-center justify-center border-2 border-dashed border-white/10">
+                    <!-- Abhi khali hai, generate karne par bharega -->
+                    <div id="placeholder" class="text-center opacity-30">
+                        <i data-lucide="monitor" class="w-16 h-16 mx-auto mb-4"></i>
+                        <p>Aman's AI is waiting for your input...</p>
+                    </div>
+
+                    <div id="portfolio-result" class="hidden w-full h-full">
+                        <div id="preview-content"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="p-12 text-center border-t border-white/10 mt-20">
+        <p class="text-gray-500 font-bold">Created by <span class="text-white italic">Aman</span></p>
+        <p class="text-[10px] text-gray-700 mt-2 uppercase tracking-[0.5em]">System Secure // 2024</p>
+    </footer>
+
+    <script>
+        // Bhai Lucide icons activate ho rahe hain
+        lucide.createIcons();
+
+        let currentMode = 'prompt';
+
+        // WhatsApp Style: Mode switch karne ka function
+        function switchMode(mode) {
+            currentMode = mode;
+            const promptSection = document.getElementById('prompt-section');
+            const guidedSection = document.getElementById('guided-section');
+            const promptTab = document.getElementById('prompt-tab');
+            const guidedTab = document.getElementById('guided-tab');
+
+            if (mode === 'prompt') {
+                promptSection.classList.remove('hidden');
+                guidedSection.classList.add('hidden');
+                promptTab.classList.add('bg-blue-600', 'text-white');
+                guidedTab.classList.remove('bg-blue-600', 'text-white');
+                guidedTab.classList.add('text-gray-400');
+            } else {
+                promptSection.classList.add('hidden');
+                guidedSection.classList.remove('hidden');
+                guidedTab.classList.add('bg-blue-600', 'text-white');
+                promptTab.classList.remove('bg-blue-600', 'text-white');
+                promptTab.classList.add('text-gray-400');
+            }
+        }
+
+        // WhatsApp Style: Asli portfolio generation logic yaha hai
+        function generatePortfolio() {
+            const placeholder = document.getElementById('placeholder');
+            const result = document.getElementById('portfolio-result');
+            const preview = document.getElementById('preview-content');
+            const dlBtn = document.getElementById('dl-btn');
+
+            let finalHTML = "";
+
+            if (currentMode === 'prompt') {
+                // Bhai yaha "Prompt Mode" ka fake AI logic hai (Templates based on keywords)
+                const prompt = document.getElementById('prompt-input').value.toLowerCase();
+                
+                let themeColor = "#2563eb"; // default blue
+                if(prompt.includes("green")) themeColor = "#059669";
+                if(prompt.includes("red")) themeColor = "#dc2626";
+                if(prompt.includes("dark")) themeColor = "#0f172a";
+
+                finalHTML = `
+                    <div style="font-family: sans-serif; color: #1e293b;">
+                        <header style="background: ${themeColor}; color: white; padding: 60px 20px; border-radius: 8px; text-align: center;">
+                            <h1 style="font-size: 3rem; margin: 0;">My Creative Space</h1>
+                            <p style="opacity: 0.8; font-size: 1.2rem;">Generated via Aman's AI Engine</p>
+                        </header>
+                        <section style="margin-top: 40px;">
+                            <h2 style="border-bottom: 2px solid ${themeColor}; display: inline-block;">About Me</h2>
+                            <p style="margin-top: 15px; line-height: 1.6;">${document.getElementById('prompt-input').value || "Professional developer and creator looking to build amazing things."}</p>
+                        </section>
+                        <footer style="margin-top: 60px; font-size: 0.8rem; color: #94a3b8; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+                            Created by Aman Portfolio System
+                        </footer>
+                    </div>
+                `;
+            } else {
+                // Bhai Guided mode ka logic
+                const name = document.getElementById('g-name').value || "Professional Name";
+                const role = document.getElementById('g-role').value || "Expert";
+                const skills = document.getElementById('g-skills').value.split(',').map(s => s.trim());
+                const certs = document.getElementById('g-certs').value || "Standard Certification";
+
+                finalHTML = `
+                    <div style="font-family: sans-serif; color: #1e293b;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #3b82f6; padding-bottom: 20px;">
+                            <div>
+                                <h1 style="font-size: 2.5rem; margin: 0; color: #1e293b;">${name}</h1>
+                                <p style="color: #3b82f6; font-weight: bold; margin: 5px 0;">${role}</p>
+                            </div>
+                            <div style="text-align: right; font-size: 0.9rem; color: #64748b;">
+                                Professional Portfolio
+                            </div>
+                        </div>
+                        <div style="margin-top: 30px;">
+                            <h3 style="color: #3b82f6; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Core Expertise</h3>
+                            <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                                ${skills.map(s => `<span style="background: #eff6ff; color: #1e40af; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">${s}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div style="margin-top: 30px; background: #f8fafc; padding: 20px; border-radius: 8px;">
+                            <h3 style="margin-top: 0; color: #1e293b;">Certifications & Recognition</h3>
+                            <p style="color: #475569;">${certs}</p>
+                        </div>
+                        <footer style="margin-top: 50px; text-align: center; font-size: 10px; color: #cbd5e1;">
+                            DESIGNED BY AMAN ARCHITECT
+                        </footer>
+                    </div>
+                `;
+            }
+
+            // Bhai preview update kar rahe hain
+            placeholder.classList.add('hidden');
+            result.classList.remove('hidden');
+            preview.innerHTML = finalHTML;
+            dlBtn.classList.remove('hidden');
+
+            // Smooth scroll to preview on mobile
+            if(window.innerWidth < 768) {
+                result.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // WhatsApp Style: HTML file download karne ka jugaad
+        function downloadPortfolio() {
+            const content = document.getElementById('preview-content').innerHTML;
+            const fullHTML = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>My Aman Portfolio</title>
+                    <style>
+                        body { font-family: sans-serif; padding: 40px; line-height: 1.6; background: #f0f2f5; }
+                        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">${content}</div>
+                </body>
+                </html>
+            `;
+            
+            const blob = new Blob([fullHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "My_Portfolio_By_Aman.html";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>
