@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXON-DIAGNOSTIC | Aman Savita Intelligence</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --surface: #0f172a;
+            --border: #1e293b;
+            --accent: #38bdf8;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --warning: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+
+        /* UI HUD Background */
+        .grid-bg { position: fixed; inset: 0; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 40px 40px; opacity: 0.2; z-index: -1; }
+
+        /* Navigation */
+        nav {
+            padding: 1.25rem 5%; background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
+        .brand span { color: var(--accent); }
+        .creator-tag { font-size: 0.7rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; }
+
+        /* Dashboard Container */
+        .wrapper { max-width: 1400px; margin: 0 auto; padding: 3rem 2rem; }
+        
+        .header-meta { text-align: center; margin-bottom: 4rem; }
+        .header-meta h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
+        .header-meta p { color: #94a3b8; max-width: 800px; margin: 0 auto; font-size: 1.1rem; }
+
+        /* Diagnostic Console Grid */
+        .console-grid { display: grid; grid-template-columns: 450px 1fr; gap: 2rem; }
+
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
+        h2 { font-size: 1rem; text-transform: uppercase; color: var(--accent); letter-spacing: 1px; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+
+        /* Input Styles */
+        .field { margin-bottom: 1.5rem; }
+        label { display: block; font-size: 0.75rem; color: #64748b; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; }
+        textarea { 
+            width: 100%; background: #020617; border: 1px solid var(--border); padding: 1rem; 
+            color: white; border-radius: 12px; outline: none; transition: 0.2s; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
+        }
+        textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
+
+        .btn-action { 
+            width: 100%; background: var(--accent); color: #000; padding: 1rem; border: none; border-radius: 8px; 
+            font-weight: 800; cursor: pointer; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .btn-action:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+        /* Results Display */
+        .output-view { display: none; flex-direction: column; gap: 1.5rem; animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .report-header { padding: 1.5rem; border-radius: 12px; border-left: 5px solid var(--accent); background: rgba(56, 189, 248, 0.05); }
+        
+        /* Action Matrix: Do's and Don'ts */
+        .matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .matrix-box { padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); }
+        .matrix-box.do { border-color: var(--success); background: rgba(34, 197, 94, 0.05); }
+        .matrix-box.dont { border-color: var(--danger); background: rgba(239, 68, 68, 0.05); }
+        .matrix-box h4 { margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+        .matrix-box ul { list-style: none; font-size: 0.85rem; color: #cbd5e1; }
+        .matrix-box li { margin-bottom: 0.5rem; display: flex; gap: 8px; }
+
+        .pro-referral { margin-top: 1.5rem; background: #1e293b; padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px dashed var(--accent); }
+
+        footer { text-align: center; padding: 4rem; color: #475569; border-top: 1px solid var(--border); margin-top: 5rem; }
+
+        @media (max-width: 1024px) { .console-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <nav>
+        <div class="brand"><i data-lucide="cpu"></i> AXON-<span>DIAGNOSTIC</span></div>
+        <div class="creator-tag">Created by Aman Savita</div>
+    </nav>
+
+    <div class="wrapper">
+        <header class="header-meta">
+            <h1>System Health & <br>Localization Interface.</h1>
+            <p>AXON-DIAGNOSTIC is an AI-tier maintenance platform. We analyze hardware desynchronization and thermal irregularities to provide a verified fix roadmap.</p>
+        </header>
+
+        <main class="console-grid">
+            <!-- Left: Input Console -->
+            <section class="card">
+                <h2><i data-lucide="terminal"></i> Telemetry Input</h2>
+                <div class="field">
+                    <label>Current System Symptoms</label>
+                    <textarea id="issueInput" rows="8" placeholder="e.g. My system is overheating, the fan makes noise, and screen glitches occur during heavy tasks..."></textarea>
+                </div>
+                <button class="btn-action" onclick="processAXON()">
+                    <i data-lucide="activity"></i> Run AI Diagnosis
+                </button>
+                <div id="loader" style="display:none; color: var(--accent); font-family: 'JetBrains Mono'; font-size: 0.7rem; text-align: center; margin-top: 1rem;">
+                    [SYSTEM] Syncing with AXON-Core...
+                </div>
+            </section>
+
+            <!-- Right: Results Dashboard -->
+            <section class="output-view" id="dashboard">
+                <div class="report-header">
+                    <h3 id="reportTitle" style="font-size: 1.2rem; margin-bottom: 0.5rem;">Analysis Complete</h3>
+                    <p id="reportSummary" style="font-size: 0.9rem; color: #94a3b8;"></p>
+                </div>
+
+                <div class="matrix">
+                    <div class="matrix-box do">
+                        <h4 style="color: var(--success)"><i data-lucide="check-circle"></i> Recommended Actions</h4>
+                        <ul id="doList"></ul>
+                    </div>
+                    <div class="matrix-box dont">
+                        <h4 style="color: var(--danger)"><i data-lucide="x-circle"></i> Critical Restrictions</h4>
+                        <ul id="dontList"></ul>
+                    </div>
+                </div>
+
+                <div class="card" style="background: transparent;">
+                    <h4 style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--accent);">AI FIX ROADMAP</h4>
+                    <p id="fixStrategy" style="font-size: 0.9rem; line-height: 1.6;"></p>
+                </div>
+
+                <div class="pro-referral">
+                    <i data-lucide="wrench" style="color: var(--accent); margin-bottom: 10px;"></i>
+                    <p style="font-size: 0.9rem; font-weight: 600;">Hardware Integrity Warning</p>
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">If you follow these steps and the issue persists, <strong>your system will be fixed only by professional intervention.</strong> We suggest taking it to a certified workshop or showing it to a hardware professional immediately.</p>
+                </div>
+                
+                <button class="btn-action" onclick="location.reload()" style="background: var(--surface); color: white; border: 1px solid var(--border);">Reset Core</button>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>AXON-DIAGNOSTIC PROTOCOL // ARCHITECT: AMAN SAVITA</p>
+        <p style="font-size: 0.7rem; margin-top: 10px; opacity: 0.5;">Secure Frame ID: 4992-AXON-2026</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function processAXON() {
+            const input = document.getElementById('issueInput').value.toLowerCase();
+            const loader = document.getElementById('loader');
+            const dashboard = document.getElementById('dashboard');
+
+            if (!input.trim()) {
+                alert("Aman Savita Core: Input data required.");
+                return;
+            }
+
+            loader.style.display = "block";
+            dashboard.style.display = "none";
+
+            setTimeout(() => {
+                loader.style.display = "none";
+                dashboard.style.display = "flex";
+
+                let title = "General Optimization Required";
+                let summary = "The system has detected minor process inefficiencies.";
+                let dos = ["Refresh the OS", "Clear background tasks", "Run a malware scan"];
+                let donts = ["Don't force a hard restart", "Don't open heavy apps"];
+                let strategy = "Your system requires a neural refresh to stabilize operations.";
+
+                // AI LOGIC ENGINE
+                if (input.includes("heat") || input.includes("overheating") || input.includes("fan")) {
+                    title = "THERMAL THROTTLING DETECTED";
+                    summary = "Aman Savita's AI has identified that <strong>this specific problem is causing the heat</strong> within your hardware chassis.";
+                    dos = ["Shut down the system immediately", "Clean the air vents with compressed air", "Use the system on a hard, flat surface", "Take it to a workshop for thermal paste replacement"];
+                    donts = ["Don't use the system on a bed or blanket", "Don't ignore the fan noise", "Don't overclock the CPU while heat is detected"];
+                    strategy = "If you clean the dust and replace the thermal paste, <strong>your system will be fixed.</strong> This is a physical restriction problem.";
+                } 
+                else if (input.includes("glitch") || input.includes("slow") || input.includes("screen")) {
+                    title = "GPU/MEMORY INTEGRITY ERROR";
+                    summary = "Detected a localization mismatch between your display drivers and GPU nodes.";
+                    dos = ["Refresh display drivers (Win+Ctrl+Shift+B)", "Update the BIOS", "Verify your RAM health"];
+                    donts = ["Don't ignore screen flickering", "Don't force high-resolution tasks"];
+                    strategy = "If you reinstall the verified graphics driver, your system glitches will be mitigated.";
+                }
+                else if (input.includes("storage") || input.includes("photo") || input.includes("disk")) {
+                    title = "DISK I/O BOTTLENECK";
+                    summary = "System storage is reaching critical capacity, causing data localization lag.";
+                    dos = ["Audit your photos and media", "Move heavy files to a cloud or external drive", "Run Disk Cleanup"];
+                    donts = ["Don't let the C: Drive reach 0 bytes", "Don't delete system files manually"];
+                    strategy = "Clearing 20% of your disk space will immediately fix the system lag.";
+                }
+
+                // Render Results
+                document.getElementById('reportTitle').innerText = title;
+                document.getElementById('reportSummary').innerHTML = summary;
+                document.getElementById('fixStrategy').innerHTML = strategy;
+
+                document.getElementById('doList').innerHTML = dos.map(item => `<li><i data-lucide="check" style="width:14px; color:var(--success)"></i> ${item}</li>`).join('');
+                document.getElementById('dontList').innerHTML = donts.map(item => `<li><i data-lucide="alert-triangle" style="width:14px; color:var(--danger)"></i> ${item}</li>`).join('');
+
+                window.scrollTo({ top: dashboard.offsetTop - 100, behavior: 'smooth' });
+                lucide.createIcons();
+
+            }, 1200);
+        }
+    </script>
+</body>
+</html>
